@@ -11,7 +11,8 @@ module.exports = function(grunt) {
                 files: ['*.html']
             },
             js: {
-                files: ['js/*.js']
+                files: ['js/*.js'],
+                tasks: ['browserify']
             }
         },
         //sass
@@ -36,6 +37,13 @@ module.exports = function(grunt) {
             },
         },
 
+        // browserify
+        browserify: {
+            build: {
+                src: 'js/main.js',
+                dest: 'js/output.js'
+            }
+        },
         //  browserSync
         browserSync: {
             dev: {
@@ -105,10 +113,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-browserify');
 
     // define default task
     // grunt.registerTask('default', ['browserSync','browserify', 'watch', 'jade', 'jshint']);
-    grunt.registerTask('default', ['clean', 'browserSync', 'watch' 'jshint']);
+    grunt.registerTask('default', ['clean', 'browserSync', 'watch', 'jshint','browserify']);
     // 給壓縮上線用 comppress task
     grunt.registerTask('compress', ['compress']);
 };
